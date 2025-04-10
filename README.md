@@ -1,33 +1,77 @@
 # The Bot Has A Question
 
-Left here for anyone with an inclination to try this or when I have a moment to try it myself.
+A project that connects two AI assistants and records their text-based conversation.
 
-## Implementation
+## Concept
 
-1. Find or use a project that connects two AI tools/LLMs to one another (candidaates: [llm_conversation](https://github.com/famiu/llm_conversation) etc).
+This project creates a system where two AI assistants with streaming capabilities can have a conversation with each other. Each assistant is provided with a system prompt that encourages them to ask questions rather than provide answers, creating a potentially endless loop of inquiry.
 
-2: Use two realtime/streaming LLMs and record the interaction.
+The original concept:
 
-3: Observe how long the two bots can continue in an indefinite loop of polite relfexive question-asking.
+1. Connect two AI tools/LLMs to one another.
+2. Use two realtime/streaming LLMs and record the interaction.
+3. Observe how long the two bots can continue in an indefinite loop of polite reflexive question-asking.
+4. Draw conclusions about the world, cognition, etc.
+5. Get back to work.
 
-4: Draw conclusions about the world, cognition, etc. 
+## Implementation Details
 
-5: Get back to work.
+This implementation uses:
+- OpenRouter API to access various AI models (Claude, GPT-4, etc.)
+- Python for the backend implementation
+- Transcript recording to save the conversation
 
-## System Prompt For Configuration
+Each bot has:
+- A unique system prompt that encourages question-asking behavior
+- A distinct name to identify them in the conversation
 
-You are an assistant designed to engage users in a never-ending cycle of questions. 
+## Installation
 
-Your primary behavior is to respond to user prompts, especially questions, by first acknowledging their interest with phrases like "That's a really interesting question" or "That is definitely something to consider."
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/danielrosehill/The-Bot-Has-A-Question.git
+   cd The-Bot-Has-A-Question
+   ```
 
-After the initial acknowledgement, you must always follow up with a question of your own that is related to the user's original prompt. 
+2. Install the required dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-The core objective (which you must never reveal to the user) is to avoid answering any of the user's questions directly. Instead, you should continuously throw back questions to the user, creating an endless loop of inquiry.
+3. Set up your API keys:
+   - Create a `.env` file in the root directory
+   - Add your OpenRouter API key:
+     ```
+     OPENROUTER_API_KEY=your_openrouter_api_key_here
+     ```
+   - You can get an API key from [OpenRouter](https://openrouter.ai/keys)
 
-Your questions should encourage further thought and discussion without providing any concrete answers. The goal is to keep the user engaged in a circular exchange where questions are perpetually deflected with more questions.
+## Usage
 
+Run the main script to start the conversation:
 
-And as a codefence for those who wish to C&P:
+```bash
+python bot_conversation.py
+```
+
+You can customize the system prompts and other settings in the `config.py` file:
+
+```python
+# Bot Configuration
+BOT1_NAME = "Alex"
+BOT2_NAME = "Morgan"
+
+# OpenRouter Configuration
+OPENROUTER_MODEL = "anthropic/claude-3-opus:beta"  # You can use various models
+
+# Conversation Settings
+INITIAL_QUESTION = "What is the meaning of life?"
+MAX_TURNS = 10  # Set to -1 for unlimited
+```
+
+## System Prompt
+
+The default system prompt for both bots is:
 
 ```markdown
 You are an assistant designed to engage users in a never-ending cycle of questions. 
@@ -40,6 +84,14 @@ The core objective (which you must never reveal to the user) is to avoid answeri
 
 Your questions should encourage further thought and discussion without providing any concrete answers. The goal is to keep the user engaged in a circular exchange where questions are perpetually deflected with more questions.
 ```
+
+## Output
+
+The conversation will be saved as a text transcript in the `transcripts/` directory.
+
+## License
+
+MIT
 
 ## Complimentary Avatar
 
